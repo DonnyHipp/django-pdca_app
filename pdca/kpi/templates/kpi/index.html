@@ -1,0 +1,30 @@
+{% extends "kpi/base.html" %}
+
+{% block content %}
+
+<h2 class="centerh">Отделы</h2>
+<div class="mainpage">
+    
+    <div class="row department">
+        {% for department in departments  %}
+        <div class="col-6 col-md-3">
+        
+            <a 
+            class="department-item"
+            href="#"
+            style="
+            background-color: {% if  department.back_color %} {{ department.back_color }} !important {% endif %};
+            color:{% if  department.text_color %} {{ department.text_color }} !important {% endif %}">
+            {{ department.title }}
+        </a>  
+    
+        </div>
+        
+        {% endfor %}
+    </div>
+    
+    
+</div>
+
+{% endblock %}
+
