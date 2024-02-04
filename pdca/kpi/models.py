@@ -4,8 +4,6 @@ from django.db import models
 from slugify import slugify
 
 
-from transliterate import translit
-
 class BaseContent(models.Model):
     title = models.CharField(max_length=255, verbose_name="Наименование", unique=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -20,19 +18,27 @@ class BaseContent(models.Model):
 
 class Department(BaseContent):
     COLOR_PALETTE = [
-        ("#FFFFFF", "white", ),
-        ("#000000", "black", ),
+        (
+            "#FFFFFF",
+            "white",
+        ),
+        (
+            "#000000",
+            "black",
+        ),
     ]
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name="Активный статус")
-    text_color = models.CharField(choices=COLOR_PALETTE, default="#000000", max_length=7)
+    text_color = models.CharField(
+        choices=COLOR_PALETTE, default="#000000", max_length=7
+    )
     back_color = ColorField(format="hexa", blank=True)
-    
+
     def save(self, *args, **kwargs):
         if not self.slug:
-
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
 
 class Entity(BaseContent):
     pass
@@ -78,15 +84,22 @@ class KPIConfig(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{str(self.title)} - {str(self.department)}"
+        return f"{str(self.kpi.title)} - {str(self.department)}"
 
 
 class KPIPhase(BaseContent):  # noqa: F811
     is_active = models.BooleanField(default=True, verbose_name="Активный статус")
 
 
-class KPIValues(models.Model):
-    years_list = (("2021","2021"),("2022","2022"), ("2023","2023"),("2024","2024"), ("2025","2025"), ("2026","2026"))
+class KPIValue(models.Model):
+    years_list = (
+        ("2021", "2021"),
+        ("2022", "2022"),
+        ("2023", "2023"),
+        ("2024", "2024"),
+        ("2025", "2025"),
+        ("2026", "2026"),
+    )
     kpi = models.ForeignKey(KPIConfig, on_delete=models.DO_NOTHING, verbose_name="KPI")
     kpi_phase = models.ForeignKey(
         KPIPhase, on_delete=models.DO_NOTHING, verbose_name="Период"
@@ -102,3 +115,5 @@ class KPIValues(models.Model):
 
     class Meta:
         unique_together = ["year", "is_glidepath", "kpi_phase", "kpi"]
+
+

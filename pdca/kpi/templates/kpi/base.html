@@ -5,19 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KPI app</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}?version=1" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?version=4" rel="stylesheet">
 
-
-    <link rel="stylesheet" href="{% static 'css/index_page.css' %}?version=1">
+    <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.js"></script>
+    <link rel="stylesheet" href="{% static 'css/index_page.css' %}?version=3">
 </head>
 <body>
     
 
-<header>
-    {% include 'kpi/menu.html' %}
-</header>
 
 <div class="container">
+    <header>
+        {% include 'kpi/menu.html' %}
+    </header>
+    
     {% block content %}
     
     {% endblock %}

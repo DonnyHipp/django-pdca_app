@@ -1,0 +1,53 @@
+{% extends "kpi/base.html" %}
+
+{% block content %}
+
+<div class="backcont">
+  <a href="{% url 'linkpage' department.slug %}" class="backbutton calssic-btn" >
+    Назад
+  </a>
+</div>
+
+
+<div class="paditem">
+    {% if body %}
+
+    <h1 class="department_header">
+       <span style="font-weight: 600;">
+        Отдел:
+      </span>  
+       <span style="font-weight: 100;">
+        {{department.title}}
+       </span>
+    </h1>
+    
+    
+    <div style="margin-top:20px;">
+        <table class="values_table">
+            <thead>
+                <tr>
+                  {% for head_item in header %}
+                    <th>{{ head_item }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+        {% block table %}
+    
+        {% endblock table %}
+    </table>
+    </div>
+
+
+    {% else %}
+    <div> 
+      <h1 style="text-align: center;">
+        Нет конфигурации kpi 
+      </h1>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+
+{% endblock %}

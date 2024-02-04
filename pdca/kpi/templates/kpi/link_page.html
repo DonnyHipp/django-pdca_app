@@ -1,0 +1,36 @@
+{% extends "kpi/base.html" %}
+
+{% block content %}
+
+<div class="backcont ">
+    <a href="{% url 'home' %}" class="backbutton calssic-btn" >
+        Назад
+    </a>
+</div>
+
+<div class="paditem">
+
+    <h1 class="department_header">
+        <span style="font-weight: 600;">
+         Отдел:
+       </span>  
+        <span style="font-weight: 100;">
+         {{department.title}}
+        </span>
+     </h1>
+
+
+    <div class="row">
+        <div class="col-12 col-md-4 pdca-link">
+                <a href="{% url 'real_kpi' department.slug %}"> <span>Ввод  kpi</span> </a>
+        </div>
+        <div class="col-12 col-md-4 pdca-link">
+
+                <a href="{% url 'glide_kpi' department.slug %}"> <span>Ввод  Glidepath</span> </a>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

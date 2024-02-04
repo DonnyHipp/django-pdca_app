@@ -1,0 +1,38 @@
+{% extends "kpi/kpi_table.html" %}
+
+{% block table %}
+
+{% comment %} {% for kpi in kpis  %}
+{{kpi.kpi.title}} {% endcomment %}
+
+<table border="1">
+
+    <tbody class="kpitable-body">
+      {% for row in body %}
+        <tr>
+          <td>{{ row.kpi.kpi.title }}</td>
+          <td>{{ row.kpi.category.title }}</td>
+          <td>{{ row.kpi.entity.title }}</td>
+          <!-- TODO <td>{{ row.kpi.owner.title }}</td> -->
+        {% for val in row.value %}
+        <td class="nopad">
+
+            {% csrf_token %}
+
+          <input type="number"  name="kpi_values[{{ row.kpi.kpi.id }}][{{ val.phase }}][{{ False }}]" value="{% if val %}{{val.real_val.value}}{% endif %}">
+        </td>
+          
+        {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% for mtd in mtx  %}
+
+ {% for i in mtd %}
+{{i}}
+{% endfor %}
+
+{% endfor %}
+{% endblock table %}
