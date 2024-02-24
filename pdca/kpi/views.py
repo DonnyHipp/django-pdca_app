@@ -1,14 +1,14 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from .models import Department, KPIValue
+from .models import Department
 
 
 from .service import DepartmentService, KPIservice
 
 
-deprtment_serviece = DepartmentService()
-kpi_serviece = KPIservice()
+deprtment_serviece = DepartmentService(1)
+kpi_serviece = KPIservice(1)
 
 
 def get_main_page(request: HttpRequest) -> HttpResponse:
@@ -28,13 +28,6 @@ def get_choice_page(request: HttpRequest, slug) -> HttpResponse:
         return redirect("home")
     else:
         return render(request, context=context, template_name=template_name)
-
-
-def get_ch(month, kpi):
-    try:
-        return KPIValue.objects.get(kpi_phase=month, kpi=kpi)
-    except KPIValue.DoesNotExist:
-        return None
 
 
 def get_all_real_kpi(request: HttpRequest, slug: str) -> HttpResponse:
@@ -74,4 +67,4 @@ def get_all_glide_kpi(request: HttpRequest, slug: str) -> HttpResponse:
 def postitem(request: HttpRequest):
     a = request.POST.dict()
     print(a)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
